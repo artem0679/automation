@@ -13,8 +13,8 @@
         <button type="submit" class="btn btn-success">Поиск</button>
         </form>
        {% if request.method == "POST" %}
-       {% if count_students  %}
-       <p>Найдено {{ count_students }} студентов, обучающихся по форме "{{ form.name }}"</p>
+       {% if str_count_students  %}
+       <p>{{ str_count_students }} по форме "{{ form.name }}"</p>
        {% else%}
        {% if form  %}
        <p>Студентов, обучающихся по форме "{{ form.name }}", НЕ НАЙДЕНО</p>

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% from 'students/macros.html' import form_student %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="mt-4">Изменить информацию о студенте</h1>
+    <form action="" method="post">
+      {{ form_student(forms, student) }}
+      <button type="submit" class="btn btn-warning">Изменить информацию о студенте</button>
+    </form>
+  </div>
+{% endblock %}

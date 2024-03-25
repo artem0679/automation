@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% from 'students/macros.html' import form_student %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="mt-4">Изменить информацию о студенте</h1>
+
+      <h3 class="me-3">Выберите какого студента хотите отредактировать</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr class="table-dark">
+            <th scope="col">ID</th>
+            <th scope="col">ФИО</th>
+            <th scope="col">Учебная группа</th>
+            <th scope="col ">
+              <div class="text-center">df</div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in students%}
+          <tr>
+            <th class="col-1" scope="row">{{ student.id }}</th>
+            <td class="col-7">{{ student.full_name }}</td>
+            <td class="col-3">{{ student.group_number }}</td>
+            <th class="col-1">
+              <div class="text-center d-flex flex-column">
+                <a href="{{ url_for('edit_student', student_id=student.id) }}" class="btn btn-warning">редактировать</a>
+              </div>
+            </th>
+          </tr>
+          {% endfor %}
+      </table>
+    </div>
+  </div>
+{% endblock %}

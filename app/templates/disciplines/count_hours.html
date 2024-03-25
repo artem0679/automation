@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="mt-4">Получить количество часов и формы отчетности по выбранной дисциплине</h1>
+    <form action="" method="post">
+      <label for="discipline">Дисциплина</label>
+      <select type="text" name="discipline" id="discipline">
+        {% for discipline in disciplines %}
+          <option value="{{ discipline.id }}">{{ discipline.discipline_name }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit" class="btn btn-success">Поиск</button>
+    </form>
+    {% if request.method == 'POST' %}
+      {% if discipline %}
+        <h3 class="mt-3">Информация о дисциплине "{{ discipline.discipline_name }}"</h3>
+        <p class="mt-3">Количество часов, отведенных под дисциплину: {{ discipline.number_of_hours }}</p>
+        <p>Форма отчетности: {{ discipline.reporting_form.name }}</p>
+      {% endif %}
+    {% endif %}
+  </div>
+{% endblock %}

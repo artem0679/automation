@@ -1,0 +1,38 @@
+{% macro form_student(forms, student) %}
+  <div class="input-group input-group-sm mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-sm">Логин</span>
+    <input type="text" class="form-control" name="login" value="{{ student.login or '' }}" />
+  </div>
+  <div class="input-group input-group-sm mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-sm">Фамилия</span>
+    <input type="text" class="form-control" name="last_name" value="{{ student.last_name or '' }}"/>
+  </div>
+  <div class="input-group input-group-sm mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-sm">Имя</span>
+    <input type="text" class="form-control" name="first_name" value="{{ student.first_name or '' }}"/>
+  </div>
+  <div class="input-group input-group-sm mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-sm">Отчество</span>
+    <input type="text" class="form-control" name="middle_name" value="{{ student.middle_name or '' }}"/>
+  </div>
+  <div class="input-group input-group-sm mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-sm">Год поступления</span>
+    <input type="number" class="form-control" name="year_of_admission" value="{{ student.year_of_admission or '' }}"/>
+  </div>
+  <div class="input-group input-group-sm mb-3">
+    <label for="form_of_education" class="me-3">Форма обучения</label>
+    <select type="text" name="form_of_education" id="form_of_education">
+      {% for form in forms %}
+        <option value="{{ form.id }}" {% if form.id == student.form_of_education_id %}selected{% endif %} >{{ form.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="input-group input-group-sm mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-sm">Номер группы</span>
+    <input type="text" class="form-control" name="group_number" value="{{ student.group_number or '' }}" />
+  </div>
+  <div class="input-group input-group-sm mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-sm">Пароль</span>
+    <input type="text" class="form-control" {% if student %} disabled value="Пароль может изменить только владелец аккаунта" {% endif %}/>
+  </div>
+{% endmacro %}
