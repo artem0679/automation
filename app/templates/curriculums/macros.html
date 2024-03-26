@@ -1,0 +1,26 @@
+{% macro form_curriculum(forms, curriculum) %}
+  <div class="input-group input-group-sm mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-sm">Название дисциплины</span>
+    <input type="text" class="form-control" name="discipline_name" value="{{ curriculum.discipline_name or '' }}" />
+  </div>
+  <div class="input-group input-group-sm mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-sm">Название специальности</span>
+    <input type="text" class="form-control" name="name_of_specialty" value="{{ curriculum.name_of_specialty or '' }}"/>
+  </div>
+  <div class="input-group input-group-sm mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-sm">Семестр</span>
+    <input type="number" class="form-control" name="semester" value="{{ curriculum.semester or '' }}"/>
+  </div>
+  <div class="input-group input-group-sm mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-sm">Количество отводимых на дисциплину часов</span>
+    <input type="text" class="form-control" name="number_of_hours" value="{{ curriculum.number_of_hours or '' }}"/>
+  </div>
+  <div class="input-group input-group-sm mb-3">
+    <label for="reporting_form_id" class="me-3">Форма отчетности</label>
+    <select type="text" name="reporting_form_id" id="reporting_form_id">
+      {% for form in forms %}
+        <option value="{{ form.id }}" {% if form.id == curriculum.form_of_education_id %}selected{% endif %} >{{ form.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+{% endmacro %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% from 'curriculums/macros.html' import form_curriculum %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="mt-4">Добавить новый учебный план</h1>
+    <form action="" method="post">
+      {{ form_curriculum(forms, curriculum) }}
+      <button type="submit" class="btn btn-success">Добавить учебный план</button>
+    </form>
+  </div>
+{% endblock %}

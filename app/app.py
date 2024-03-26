@@ -22,7 +22,7 @@ metadata = MetaData(naming_convention=convention)
 db = SQLAlchemy(app, metadata=metadata)
 migrate = Migrate(app, db)
 
-from models import User, Form_of_education, Curriculum
+from models import User, Form_of_education, Curriculum, Reporting_form
 from auth import bp as auth_bp, init_login_manager
 
 app.register_blueprint(auth_bp)
@@ -119,3 +119,23 @@ def edit_student(student_id):
             flash('При редактировании информации о студенте возникла ошибка', 'danger')
             db.session.rollback()
     return render_template('students/edit_student.html', student=student, forms=forms)
+
+@app.route('/add_curriculum', methods=["GET", "POST"])
+def add_curriculum():
+    forms = Reporting_form.query.all()
+    if request.method=="POST":
+        fields_list = [
+            'discipline_name', 'name_of_specialty', 'semester', 
+            'number_of_hours', 'reporting_form_id']
+        dict_ = get_json(fields_list)
+        curriculum = Curriculum(**dict_)
+        try:
+            db.session.add(curriculum)
+            db.session.commit()
+            flash('Учбеный план успешно добавлен', 'success')
+            return redirect(url_for('index'))
+        except:
+            db.session.rollback()
+            flash('Во время добавления учебного плана произошла ошибка', 'danger')
+    return render_template('curriculums/add_curriculum.html', forms=forms, curriculum='')
+
