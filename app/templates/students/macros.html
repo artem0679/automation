@@ -33,6 +33,6 @@
   </div>
   <div class="input-group input-group-sm mb-3">
     <span class="input-group-text" id="inputGroup-sizing-sm">Пароль</span>
-    <input type="text" class="form-control" {% if student %} disabled value="Пароль может изменить только владелец аккаунта" {% endif %}/>
+    <input {% if student %} type="text" {% else %} type="password" name="password" {% endif %}  class="form-control" {% if student %} disabled value="Пароль может изменить только владелец аккаунта" {% endif %}/>
   </div>
 {% endmacro %}
