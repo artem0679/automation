@@ -4,7 +4,7 @@ SECRET_KEY = "f4a4610d-366b-40f0-bc2c-6df1c6deb766"
 
 params = {
     "username": "root",
-    "password": "Pa$$w0rd",
+    "password": "password",
     "db_name": "academic_performance",
     "db_url": "localhost",
 }
