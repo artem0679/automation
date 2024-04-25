@@ -5,6 +5,10 @@ from sqlalchemy import MetaData
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
+from prometheus_client import generate_latest
+from prometheus_client import Counter
+from prometheus_client import Summary
+
 app = Flask(__name__)
 application = app
 
@@ -22,17 +26,29 @@ metadata = MetaData(naming_convention=convention)
 db = SQLAlchemy(app, metadata=metadata)
 migrate = Migrate(app, db)
 
-from models import User, Form_of_education, Curriculum, Reporting_form
-from auth import bp as auth_bp, init_login_manager
+from models import User, Form_of_education, Curriculum, Reporting_form, Journal_of_performance
+from auth import bp as auth_bp, init_login_manager, check_rights
 
 app.register_blueprint(auth_bp)
 
 init_login_manager(app)
 
+INDEX_TIME = Summary('index_request_processing_seconds', 'DESC: INDEX time spent processing request')
+c = Counter('requests_for_host', 'Number of runs of the process_request method', ['method', 'endpoint'])
+
+
+
 
 @app.route('/')
+@INDEX_TIME.time()
 def index():
     return render_template('index.html')
+
+
+@app.route('/metrics')
+def metrics():
+    return generate_latest()
+
 
 @app.route('/count_students', methods=["GET", "POST"])
 def count_students():
@@ -139,3 +155,7 @@ def add_curriculum():
             flash('Во время добавления учебного плана произошла ошибка', 'danger')
     return render_template('curriculums/add_curriculum.html', forms=forms, curriculum='')
 
+@app.route('/journal_of_performance')
+def journal_of_performance():
+    journals = Journal_of_performance.query.all()
+    return render_template('journal_of_performance/index.html', journals=journals)

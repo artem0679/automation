@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-5">
+    <table class="table table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Семестр</th>
+          <th scope="col">ФИО студента</th>
+          <th scope="col">Название дисциплины</th>
+          <th scope="col">Оценка</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if journals %}
+        {% for journal in journals %}
+        <tr>
+          <th scope="row">{{loop.index}}</th>
+          <td>{{ journal.semester }}</td>
+          <td>{{ journal.student.full_name }}</td>
+          <td>{{ journal.curriculum.discipline_name }}</td>
+          <td>{{ journal.mark.number_mark}} ({{ journal.mark.text_mark }})</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

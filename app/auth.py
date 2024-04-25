@@ -40,6 +40,7 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+
 def check_rights(action):
     def decor(function):
         @wraps(function)
